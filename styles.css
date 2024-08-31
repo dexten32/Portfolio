@@ -101,6 +101,15 @@ body {
 .highlight {
     color: #fbbf24; /* Bootstrap equivalent of Tailwind's yellow-400 */
 }
+.profile-image {
+    float: left;
+    margin-right: 20px;
+    z-index: 10;
+  }
+  
+  .description {
+    float: left;
+  }
 
 /* Responsive Styles */
 
@@ -109,25 +118,27 @@ body {
         max-width: 90%;
     }
     .profile-image {
-        max-width: 400px;
-    }
+        float: none;
+        display: block;
+        margin: 0 auto;
+      }
+    
+      .description {
+        float: none;
+        display: block;
+        margin-bottom: 20px;
+      }
 }
 
 @media (max-width: 992px) {
     .content-wrapper {
         max-width: 80%;
     }
-    .profile-image {
-        max-width: 300px;
-    }
 }
 
 @media (max-width: 768px) {
     .content-wrapper {
         max-width: 90%;
-    }
-    .profile-image {
-        max-width: 250px;
     }
     .latest-articles li {
         flex-direction: column;
@@ -136,11 +147,22 @@ body {
 }
 
 @media (max-width: 576px) {
+    body {
+        width: 40rem;
+    }
+
+    section::before {
+        display: none;
+    }
+
+    section::after {
+        display: none;
+    }
+    nav {
+        width: 40rem;
+    }
     .content-wrapper {
         max-width: 95%;
-    }
-    .profile-image {
-        max-width: 200px;
     }
     .latest-articles li {
         margin-bottom: 1rem;
@@ -156,7 +178,8 @@ section::before {
 	width: 100%;
 	height: 100%;
 	background: linear-gradient(#DA22FF, #9733EE);
-	clip-path: circle(20% at right 60%);
+	clip-path: circle(30% at right 70%);
+    z-index: -1;
 }
 
 section::after {
@@ -167,7 +190,8 @@ section::after {
 	width: 100%;
 	height: 100%;
 	background: linear-gradient(#E55D87, #5FC3E4);
-	clip-path: circle(10% at 10% 10%);
+	clip-path: circle(20% at 5% 5%);
+    z-index: -1;
     
 }
 
