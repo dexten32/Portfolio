@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Professional Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <nav class="bg-gray-800">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center mr-auto justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button type="button"
+            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu" aria-expanded="false">
+            <span class="absolute -inset-0.5"></span>
+            <span class="sr-only">Open main menu</span>
+            <!--
+                  Icon when menu is closed.
+      
+                  Menu open: "hidden", Menu closed: "block"
+                -->
+            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+              aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <!--
+                  Icon when menu is open.
+      
+                  Menu open: "block", Menu closed: "hidden"
+                -->
+            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+              aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex flex-1 items-center justify-center ml-5 sm:items-stretch sm:justify-start">
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a href="#dashboard"
+                class="rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                aria-current="page">Dashboard</a>
+              <a href="#projects"
+                class="rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
+              <a href="#footer"
+                class="rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Contact
+                Me</a>
+            </div>
+          </div>
+        </div>
+        <div class="absolute mr-5 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <button type="button"
+            class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">View notifications</span>
+            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+              aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+          </button>
+
+          <!-- Profile dropdown -->
+          <div class="relative ml-3">
+            <div>
+              <button type="button"
+                class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-1 focus:ring-offset-gray-800"
+                id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                <span class="absolute -inset-1.5"></span>
+                <img class="h-9 w-9 m-2 rounded-full" src="/Portfolio/assets/ProfilePic.jpg" alt="">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </nav>
+  <!--- Description -->
+  <div id="dashboard" class="content-wrapper">
+    <!-- Profile Section -->
+    <div class="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
+      <div class="lg:w-3/4">
+        <h2 class="text-7xl mt-20 max-w-6xl text-nowrap font-bold mb-4">Hey, I'm Harsh Bajaj.</h2>
+        <p class="text-3xl text-balance max-w-6xl mb-4">
+          I’m an enthusiastic web developer actively learning and gaining experience through <span class="font-semibold text-yellow-400">projects</span> and <span
+          class="font-semibold text-yellow-400">Internships.</span>
+          With a solid foundation in modern web technologies, I’m passionate about continuous growth and eager to
+          contribute to a collaborative team. I thrive on new challenges and aim to create dynamic and engaging
+          websites.  and  about what I learn.
+        </p>
+        <p class="flex items-center space-x-2">
+          <a href="#" class="text-blue-400 hover:underline">More about me</a>
+          <span class="text-sm text-gray-400">|</span>
+          <span class="text-sm text-gray-400">1,068 connections on LinkedIn</span>
+        </p>
+      </div>
+      <div class="lg:w-3/4 h-900 mx-200 mt-6 lg:mt-0">
+        <img src="/Portfolio/assets/ProfilePic.jpg" alt="Tania Rascia" class="profile-image  shadow-lg">
+      </div>
+    </div>
+
+    <!-- Latest Articles Section -->
+    <div class="latest-articles mt-12">
+      <h3 class="text-5xl font-bold mb-2">Latest Projects</h3>
+      <hr class="mb-3 mt-3">
+      <ul>
+        <li>
+          <a href="#" class=" text-warning hover:underline">Job Application</a>
+          <span>Currently under update</span>
+        </li>
+        <li>
+          <a href="#" class="text-warning hover:underline">Swoodie</a>
+          <span>Aug 25</span>
+        </li>
+      </ul>
+      <a href="#" class="view-all hover:underline">View All</a>
+    </div>
+
+    <!-- Projects -->
+    <section id="projects" class="section-container py-5">
+      <h1 class="display-5 fw-bold section-title text-center mb-5">My Projects</h1>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-1 g-4">
+        <!-- Card 1 -->
+        <div class="container">
+          <div class="card">
+            <div class="content">
+              <div class="imgBx">
+                <img src="/Portfolio/assets/todo-application.jpg">
+              </div>
+              <div class="contentBx">
+                <h3>Todo Application<br><span>An intuitive app for organizing tasks, tracking progress.</span></h3>
+              </div>
+            </div>
+            <ul class="sci">
+              <li>
+                <a href="https://todossapplication.netlify.app">Website Link</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="content">
+              <div class="imgBx">
+                <img src="/Portfolio/assets/youthoob.jpg">
+              </div>
+              <div class="contentBx">
+                <h3>Youthoob<br><span>A streamlined app for watching, uploading, and sharing videos with a user-friendly
+                    interface and personalized recommendations. </span></h3>
+              </div>
+            </div>
+            <ul class="sci">
+              <li>
+                <a href="https://youthooob.netlify.app">Webiste Link</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="content">
+              <div class="imgBx">
+                <img src="/Portfolio/assets/ecommerce.jpg">
+              </div>
+              <div class="contentBx">
+                <h3>E-commerce<br><span>An online platform for browsing, purchasing, and selling products or services
+                    with secure payment</span></h3>
+              </div>
+            </div>
+            <ul class="sci">
+              <li>
+                <a href="https://hecommerce.netlify.app">Website Link</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Additional cards can be added similarly -->
+      </div>
+    </section>
+  </div>
+
+  <footer id="footer" class="bg-black flex justify-center space-x-6 py-6">
+    <a href="https://twitter.com" target="_blank" class="social-icon social-icon-twitter">
+      <img src="https://img.icons8.com/ios-glyphs/30/ffffff/twitter--v1.png" alt="Twitter" class="w-8 h-8">
+    </a>
+    <a href="https://github.com" target="_blank" class="social-icon-github">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"
+        class=" h-8 w-8">
+    </a>
+    <a href="https://instagram.com" target="_blank" class="social-icon social-icon-instagram">
+      <img src="https://img.icons8.com/ios-glyphs/30/ffffff/instagram-new.png" alt="Instagram" class="w-8 h-8">
+    </a>
+    <a href="https://www.linkedin.com/in/harsh-bajajb/" target="_blank" class="social-icon social-icon-linkedin">
+      <img src="https://img.icons8.com/ios-glyphs/30/ffffff/linkedin-circled.png" alt="LinkedIn" class="w-8 h-8">
+    </a>
+    <a href="https://wa.me/+919311250520" target="_blank" class="social-icon social-icon-whatsapp">
+      <img src="https://img.icons8.com/ios-glyphs/30/ffffff/whatsapp.png" alt="WhatsApp" class="w-8 h-8">
+    </a>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
