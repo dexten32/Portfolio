@@ -1,451 +1,371 @@
-// Custom cursor
+// ==========================================================================
+// DUOLINGO-STYLE GAMIFIED PORTFOLIO INTERACTIVITY
+// ==========================================================================
+
+// 1. Custom Cursor Movement
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
 document.addEventListener('mousemove', e => {
-  mouseX = e.clientX; mouseY = e.clientY;
-  cursor.style.left = mouseX - 6 + 'px';
-  cursor.style.top = mouseY - 6 + 'px';
+  mouseX = e.clientX; 
+  mouseY = e.clientY;
+  if (cursor) {
+    cursor.style.left = mouseX - 6 + 'px';
+    cursor.style.top = mouseY - 6 + 'px';
+  }
 });
 
 function animateRing() {
-  ringX += (mouseX - ringX - 18) * 0.12;
-  ringY += (mouseY - ringY - 18) * 0.12;
-  ring.style.left = ringX + 'px';
-  ring.style.top = ringY + 'px';
+  if (ring) {
+    ringX += (mouseX - ringX - 18) * 0.15;
+    ringY += (mouseY - ringY - 18) * 0.15;
+    ring.style.left = ringX + 'px';
+    ring.style.top = ringY + 'px';
+  }
   requestAnimationFrame(animateRing);
 }
 animateRing();
 
-document.querySelectorAll('a, button, .proj-card, .exp-content').forEach(el => {
+// Cursor Hover Interactions
+document.querySelectorAll('a, button, .project-card, .skill-node-card, .badge-card').forEach(el => {
   el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'scale(2)';
-    ring.style.transform = 'scale(1.5)';
-    ring.style.borderColor = 'rgba(255,209,102,0.6)';
+    if (cursor) cursor.style.transform = 'scale(1.8)';
+    if (ring) ring.style.transform = 'scale(1.4)';
   });
   el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'scale(1)';
-    ring.style.transform = 'scale(1)';
-    ring.style.borderColor = 'rgba(255,159,28,0.5)';
+    if (cursor) cursor.style.transform = 'scale(1)';
+    if (ring) ring.style.transform = 'scale(1)';
   });
 });
 
-// Canvas background — data packet streams
+// 2. Background Sparkles & Floating Particles Canvas
 const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-const streams = [];
-const STREAM_COUNT = 30;
-
-class DataStream {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = -50;
-    this.speed = 0.5 + Math.random() * 1.5;
-    this.length = 40 + Math.random() * 80;
-    this.opacity = 0.1 + Math.random() * 0.3;
-    this.width = Math.random() < 0.5 ? 1 : 0.5;
-    this.color = Math.random() < 0.7 ? '#ffd166' : '#ff9f1c';
-    // Packets along stream
-    this.packets = Array.from({ length: Math.floor(2 + Math.random() * 4) }, () => Math.random());
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
-  update() {
-    this.y += this.speed;
-    this.packets = this.packets.map(p => (p + 0.005) % 1);
-    if (this.y > canvas.height + 100) this.reset();
-  }
-  draw() {
-    // Draw line
-    const grad = ctx.createLinearGradient(this.x, this.y - this.length, this.x, this.y);
-    grad.addColorStop(0, 'transparent');
-    grad.addColorStop(0.5, this.color + Math.floor(this.opacity * 255).toString(16).padStart(2, '0'));
-    grad.addColorStop(1, 'transparent');
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = this.width;
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y - this.length);
-    ctx.lineTo(this.x, this.y);
-    ctx.stroke();
-    // Draw packets
-    this.packets.forEach(p => {
-      const py = this.y - this.length * p;
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  const particles = [];
+  const PARTICLE_COUNT = 25;
+
+  class SparkleParticle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = 2 + Math.random() * 4;
+      this.speedY = -0.3 - Math.random() * 0.5;
+      this.opacity = 0.2 + Math.random() * 0.5;
+      const colors = ['#58cc02', '#1cb0f6', '#ff9600', '#ce82ff', '#ffc800'];
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+    }
+    update() {
+      this.y += this.speedY;
+      if (this.y < -10) {
+        this.reset();
+        this.y = canvas.height + 10;
+      }
+    }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
       ctx.fillStyle = this.color;
-      ctx.globalAlpha = this.opacity * 2;
-      ctx.fillRect(this.x - 1.5, py - 3, 3, 6);
-      ctx.globalAlpha = 1;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new SparkleParticle());
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
     });
+    requestAnimationFrame(animateParticles);
   }
+  animateParticles();
 }
 
-// Horizontal streams too
-class HDataStream {
-  constructor() { this.reset(); }
-  reset() {
-    this.y = Math.random() * canvas.height;
-    this.x = -50;
-    this.speed = 0.3 + Math.random() * 1;
-    this.length = 30 + Math.random() * 60;
-    this.opacity = 0.05 + Math.random() * 0.12;
-  }
-  update() {
-    this.x += this.speed;
-    if (this.x > canvas.width + 100) this.reset();
-  }
-  draw() {
-    const grad = ctx.createLinearGradient(this.x - this.length, this.y, this.x, this.y);
-    grad.addColorStop(0, 'transparent');
-    grad.addColorStop(1, `rgba(255,159,28,${this.opacity})`);
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = 0.5;
-    ctx.beginPath();
-    ctx.moveTo(this.x - this.length, this.y);
-    ctx.lineTo(this.x, this.y);
-    ctx.stroke();
-  }
-}
+// 3. Scroll Progress & Quest Navigation Highlights
+const completionBar = document.getElementById('completion-bar-fill');
+const navLinks = document.querySelectorAll('.nav-quest-path a');
+const sections = document.querySelectorAll('section[id]');
 
-for (let i = 0; i < STREAM_COUNT; i++) {
-  const s = new DataStream();
-  s.y = Math.random() * canvas.height;
-  streams.push(s);
-}
-for (let i = 0; i < 15; i++) {
-  const s = new HDataStream();
-  s.x = Math.random() * canvas.width;
-  streams.push(s);
-}
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  streams.forEach(s => { s.update(); s.draw(); });
-  requestAnimationFrame(animate);
-}
-animate();
+  if (completionBar) {
+    completionBar.style.width = Math.max(10, scrollPercent) + '%';
+  }
 
-// Reveal on scroll
-const reveals = document.querySelectorAll('.reveal');
-const io = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 80);
+  let currentSection = 'hero';
+  sections.forEach(sec => {
+    if (scrollTop >= sec.offsetTop - 150) {
+      currentSection = sec.id;
     }
   });
-}, { threshold: 0.1 });
-reveals.forEach(r => io.observe(r));
 
-// Smooth nav active
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 100) current = s.id;
-  });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+  navLinks.forEach(link => {
+    if (link.getAttribute('href') === '#' + currentSection) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
   });
 }, { passive: true });
 
-// Pixel Grid Initialization (5x5 Custom Staircase Shape)
-const pixelGrid = document.getElementById('pixel-grid');
-if (pixelGrid) {
-  const ROWS = 5;
-  const COLS = 5;
-  const pixels = [];
-  // Hardcoded skips per row: 1st row: 1, 2nd: 2, 3rd: 1, 4th: 3, 5th: 0
-  const ROW_SKIPS = [1, 2, 1, 3, 0];
-
-  for (let r = 0; r < ROWS; r++) {
-    const skipCount = ROW_SKIPS[r];
-    for (let c = 0; c < COLS; c++) {
-      const pixel = document.createElement('div');
-      pixel.classList.add('pixel');
-
-      if (c < skipCount) {
-        pixel.style.opacity = '0';
-        pixel.style.pointerEvents = 'none';
-      }
-
-      pixel.addEventListener('mouseenter', () => triggerIndividualSweep(pixel));
-      pixelGrid.appendChild(pixel);
-      pixels.push(pixel);
+// 4. Reveal Animation on Scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, idx) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, idx * 60);
     }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(r => observer.observe(r));
+
+// 5. Gamified Terminal Command Handler
+function runTermCmd(cmd) {
+  const termBody = document.getElementById('term-body');
+  if (!termBody) return;
+
+  let outputText = '';
+  switch (cmd) {
+    case 'whoami':
+      outputText = 'Full-stack developer with 1+ year experience building end-to-end web apps from PostgreSQL schemas & Express APIs to React dashboards.';
+      break;
+    case 'skills':
+      outputText = 'Frontend: React, Next.js, TypeScript, Tailwind CSS, State Management\nBackend: Node.js, Express, FastAPI, PostgreSQL, MongoDB, Prisma, Redis';
+      break;
+    case 'projects':
+      outputText = '1. Time Tracker (Full-Stack)\n2. Advanced Resume ATS & Intelligence\n3. Invoice Generator Pro\n4. Task Management System';
+      break;
+    case 'streak':
+      outputText = '🔥 7-Day Active Coding Streak! Earned +250 XP this week shipping clean features.';
+      break;
+    case 'contact':
+      outputText = 'Email: work.harshbajaj@gmail.com | GitHub: github.com/Harsh-Bajajb';
+      break;
+    default:
+      outputText = 'Command not recognized. Try: whoami, skills, projects, streak, contact';
   }
 
-  function triggerIndividualSweep(targetPixel) {
-    const pixel = targetPixel || pixels[Math.floor(Math.random() * pixels.length)];
-    if (!pixel || pixel.style.opacity === '0' || pixel.classList.contains('sweeping')) return;
+  const promptLine = document.createElement('div');
+  promptLine.className = 'term-line';
+  promptLine.innerHTML = `<span class="term-prompt">~/harsh-portfolio</span> <span class="term-cmd">$ ${cmd}</span>`;
 
-    // 4 Fixed Directions: [origin, destination]
-    const directions = [
-      ['translateX(-100%)', 'translateX(100%)'], // L-R
-      ['translateX(100%)', 'translateX(-100%)'], // R-L
-      ['translateY(-100%)', 'translateY(100%)'], // T-B
-      ['translateY(100%)', 'translateY(-100%)']  // B-T
-    ];
-    const [origin, dest] = directions[Math.floor(Math.random() * 4)];
+  const outputLine = document.createElement('div');
+  outputLine.className = 'term-line term-output';
+  outputLine.innerText = outputText;
 
-    const colors = ['var(--accent4)', 'var(--accent5)', 'var(--accent6)'];
-    const color = colors[Math.floor(Math.random() * colors.length)];
-
-    pixel.style.setProperty('--sweep-color', color);
-    pixel.style.setProperty('--sweep-origin', origin);
-    pixel.style.setProperty('--sweep-destination', dest);
-
-    pixel.classList.add('sweeping');
-    setTimeout(() => pixel.classList.remove('sweeping'), 1500);
-  }
-
-  // Trigger one at a time (Interval > Animation Duration)
-  setInterval(() => triggerIndividualSweep(), 2500);
+  termBody.appendChild(promptLine);
+  termBody.appendChild(outputLine);
+  termBody.scrollTop = termBody.scrollHeight;
 }
 
-// ===== INTERACTIVE TERMINAL ENGINE =====
-const terminalBox = document.getElementById('terminal-box');
-const hiddenInput = document.getElementById('terminal-hidden-input');
-const terminalHistory = document.getElementById('terminal-history');
-const activeInputText = document.querySelector('.active-line .input-text');
-
-if (terminalBox && hiddenInput && terminalHistory && activeInputText) {
-  // Command History tracking
-  const cmdHistory = [];
-  let historyIndex = -1;
-
-  // Let users focus the hidden input by clicking anywhere in the terminal box
-  terminalBox.addEventListener('click', () => {
-    hiddenInput.focus();
-  });
-
-  // Listen for text input to update the visual active line
-  hiddenInput.addEventListener('input', () => {
-    activeInputText.textContent = hiddenInput.value;
-    terminalBox.scrollTop = terminalBox.scrollHeight;
-  });
-
-  // Handle keys (Enter for execution, Up/Down for history)
-  hiddenInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const command = hiddenInput.value.trim();
-      executeCommand(command);
-      hiddenInput.value = '';
-      activeInputText.textContent = '';
-      historyIndex = -1;
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (cmdHistory.length > 0) {
-        if (historyIndex === -1) {
-          historyIndex = cmdHistory.length - 1;
-        } else if (historyIndex > 0) {
-          historyIndex--;
-        }
-        hiddenInput.value = cmdHistory[historyIndex];
-        activeInputText.textContent = hiddenInput.value;
-      }
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (cmdHistory.length > 0 && historyIndex !== -1) {
-        if (historyIndex < cmdHistory.length - 1) {
-          historyIndex++;
-          hiddenInput.value = cmdHistory[historyIndex];
-        } else {
-          historyIndex = -1;
-          hiddenInput.value = '';
-        }
-        activeInputText.textContent = hiddenInput.value;
-      }
-    }
-  });
-
-  function executeCommand(cmdStr) {
-    // 1. Add command to history array
-    if (cmdStr) {
-      cmdHistory.push(cmdStr);
-      // Cap history at 50 entries
-      if (cmdHistory.length > 50) cmdHistory.shift();
-    }
-
-    // 2. Append original prompt line to terminal history (static version)
-    const promptLine = document.createElement('div');
-    promptLine.className = 'terminal-line';
-    promptLine.innerHTML = `<span class="prompt">~/harsh-bajaj</span> <span class="cmd">$ ${escapeHTML(cmdStr)}</span>`;
-    terminalHistory.appendChild(promptLine);
-
-    // 3. Process output
-    const cleanCmd = cmdStr.toLowerCase().trim();
-    let outputLines = [];
-
-    if (cleanCmd === '') {
-      // Empty enter, do nothing
-    } else if (cleanCmd === 'help') {
-      outputLines = [
-        'Available commands:',
-        '  about / whoami  - Learn more about Harsh Bajaj',
-        '  skills          - Print core technical proficiencies',
-        '  projects        - List systems, web & desktop projects',
-        '  education       - View academic credentials',
-        '  contact         - Output active communication channels',
-        '  resume          - Download Harsh_Bajaj_Resume.pdf',
-        '  clear           - Flush terminal output buffer'
-      ];
-    } else if (cleanCmd === 'about' || cleanCmd === 'whoami') {
-      outputLines = [
-        'Harsh Bajaj — Backend Engineer // Systems Engineer',
-        'Experienced (~2 years) in architecting high-throughput REST APIs,',
-        'distributed task processing (Redis/BullMQ), secure RBAC workflows,',
-        'and AI-powered semantic matching (ONNX Runtime, NLP pipelines).',
-        'Currently pursuing a Master of Computer Applications (MCA) at IGNOU.'
-      ];
-    } else if (cleanCmd === 'skills') {
-      outputLines = [
-        'Core Technical Capabilities:',
-        '  [Backend & Systems]   Node.js · TypeScript · Express.js · FastAPI · REST APIs',
-        '  [Databases & Cache]   PostgreSQL · MongoDB · MySQL · Redis · Prisma ORM',
-        '  [AI & NLP Engine]     Semantic Search · Cosine Similarity · ONNX Runtime',
-        '  [Infrastructure]      Docker · Linux · PM2 · Load Testing (k6) · Nginx',
-        '  [Security & Devops]   Secure Backend Architectures · JWT · RBAC · Winston Logging'
-      ];
-    } else if (cleanCmd === 'projects') {
-      outputLines = [
-        'Technical Showcase:',
-        '  001: Advanced Resume ATS & Intelligence [Desktop Application - GitHub]',
-        '       - AI-powered matching, all-MiniLM-L6-v2 embeddings, keyword stuffing penalties.',
-        '  002: Invoice Generator Pro [Desktop Application - Electron/React]',
-        '       - High-fidelity invoice design, real-time PDF generation, localized file exports.',
-        '  003: Task Management System [Web Application - Vercel]',
-        '       - Redis & BullMQ queuing, Express backend, JWT RBAC, Prisma, MySQL.'
-      ];
-    } else if (cleanCmd === 'education') {
-      outputLines = [
-        'Education Credentials:',
-        '  - Master of Computer Applications (MCA) | IGNOU (2025 - 2027) - In Progress',
-        '  - BSc Computer Science | Deshbandhu College, Delhi University (2021 - 2025) - Completed'
-      ];
-    } else if (cleanCmd === 'contact') {
-      outputLines = [
-        'Initialize Connection Channels:',
-        '  - Email:    harshbajaj544@gmail.com',
-        '  - GitHub:   github.com/dexten32',
-        '  - LinkedIn: linkedin.com/in/harsh-bajajb'
-      ];
-    } else if (cleanCmd === 'resume') {
-      outputLines = ['Locating artifact... Triggering download for Harsh_Bajaj_Resume.pdf...'];
-      // Virtual anchor to download resume
-      const downloadLink = document.createElement('a');
-      downloadLink.href = 'Harsh_Bajaj_Resume.pdf';
-      downloadLink.download = 'Harsh_Bajaj_Resume.pdf';
-      downloadLink.style.display = 'none';
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-    } else if (cleanCmd === 'clear') {
-      terminalHistory.innerHTML = '';
-    } else {
-      outputLines = [
-        `sh: command not found: ${escapeHTML(cmdStr)}`,
-        'Type "help" to see all valid systems commands.'
-      ];
-    }
-
-    // 4. Print output lines
-    outputLines.forEach(lineText => {
-      const outLine = document.createElement('div');
-      outLine.className = 'terminal-line output';
-      outLine.textContent = lineText;
-      terminalHistory.appendChild(outLine);
-    });
-
-    // 5. Scroll terminal box to the bottom
-    terminalBox.scrollTop = terminalBox.scrollHeight;
+// 6. Project Details Modal Data & Handlers
+const projectDetailsData = {
+  'time-tracker': {
+    title: '⏱️ Time Tracker — Full-Stack Productivity App',
+    type: 'Full-Stack Quest',
+    oneLiner: 'A full-stack time tracking app to log, analyze, and visualize time spent on projects and tasks.',
+    features: [
+      'Start/stop live stopwatch & manual time entry for tasks and projects',
+      'Dashboard with daily, weekly, and monthly time breakdowns using interactive charts',
+      'Project and tag-based categorization for granular work analysis',
+      'User authentication (JWT) with user-specific data isolation & data privacy',
+      'Export time logs to CSV/PDF for client billing and reporting'
+    ],
+    techStack: {
+      frontend: 'React + TypeScript + Tailwind CSS + Chart.js',
+      backend: 'Node.js + Express.js + REST API Architecture',
+      database: 'PostgreSQL + Prisma ORM',
+      auth: 'JWT (JSON Web Tokens) authentication',
+      deployment: 'Electron Desktop & Cross-Platform Client'
+    },
+    ownership: 'Designed the PostgreSQL schema, implemented secure REST API endpoints, built responsive React dashboard components, and packaged the Electron desktop client.'
+  },
+  'ats': {
+    title: '🎯 Advanced Resume ATS & Intelligence',
+    type: 'AI Full-Stack Desktop & Web App',
+    oneLiner: 'AI-powered resume evaluation engine using ONNX vector embeddings and penalty scoring.',
+    features: [
+      'Interactive drag-and-drop resume upload & instant match scoring UI',
+      'ONNX Runtime text embeddings (all-MiniLM-L6-v2) for semantically accurate candidate matching',
+      'Domain weighting and inflation-resistant penalty engines to eliminate keyword stuffing',
+      'Load-tested with k6 to achieve sub-300ms p95 response times'
+    ],
+    techStack: {
+      frontend: 'React UI / CustomTkinter Desktop Client',
+      backend: 'Python FastAPI Microservice',
+      database: 'PostgreSQL + ONNX NLP Pipelines',
+      deployment: 'Local Desktop & Cloud REST API'
+    },
+    ownership: 'Designed vector similarity calculations, built custom desktop client, and optimized FastAPI backend endpoints.'
+  },
+  'invoice': {
+    title: '🧾 Invoice Generator Pro',
+    type: 'Full-Stack Desktop & Web Client',
+    oneLiner: 'High-fidelity invoice creation portal with live side-by-side PDF previewing and tax calculations.',
+    features: [
+      'Real-time live PDF preview as user types billing items',
+      'Multi-currency support & automated tax/discount calculations',
+      'Custom branding & logo upload options',
+      'One-click local file exports and browser storage persistence'
+    ],
+    techStack: {
+      frontend: 'React + Tailwind CSS + jsPDF',
+      backend: 'Node.js / Electron Desktop Wrapper',
+      database: 'Local Storage / IndexDB',
+      deployment: 'Desktop App & Web Version'
+    },
+    ownership: 'Built full client interface, implemented jsPDF generation logic, and engineered instant document previews.'
+  },
+  'tms': {
+    title: '📋 Task Management System',
+    type: 'Enterprise Full-Stack Platform',
+    oneLiner: 'Production-grade task management platform featuring background worker queues and secure RBAC.',
+    features: [
+      'Modular backend architecture with JWT authentication & RBAC middleware',
+      'Redis & BullMQ integration for asynchronous background task processing',
+      'Real-time task status updates & optimized database connection pooling',
+      'Sub-100ms API response latency under concurrent heavy user loads'
+    ],
+    techStack: {
+      frontend: 'React Dashboard UI',
+      backend: 'Node.js + Express.js + BullMQ + Redis',
+      database: 'MySQL + Prisma ORM',
+      deployment: 'VPS + Nginx Reverse Proxy'
+    },
+    ownership: 'Architected complete SQL schemas, implemented background queue worker pipelines, and built management board UI.'
   }
+};
 
-  // Pre-load prompt focus
-  terminalBox.scrollTop = terminalBox.scrollHeight;
+function openProjectModal(projectId) {
+  const modal = document.getElementById('project-modal');
+  const modalBody = document.getElementById('modal-body-content');
+  const data = projectDetailsData[projectId];
 
-  function escapeHTML(str) {
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-  }
+  if (!modal || !modalBody || !data) return;
+
+  let featuresListHtml = data.features.map(f => `<li>✔ ${f}</li>`).join('');
+
+  modalBody.innerHTML = `
+    <span class="project-type-badge">${data.type}</span>
+    <h2 style="font-size: 1.8rem; font-weight: 900; margin: 12px 0 6px; color: var(--duo-gray-dark);">${data.title}</h2>
+    <p style="font-size: 1.05rem; font-weight: 700; color: var(--duo-gray-mid); margin-bottom: 20px;">${data.oneLiner}</p>
+
+    <div style="background: var(--duo-bg); border: 2px solid var(--duo-border); border-radius: 16px; padding: 18px; margin-bottom: 20px;">
+      <h3 style="font-size: 1rem; font-weight: 900; margin-bottom: 10px; color: var(--duo-green-dark);">✨ Key Features & User Flow</h3>
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-weight: 700; font-size: 0.9rem;">
+        ${featuresListHtml}
+      </ul>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h3 style="font-size: 1rem; font-weight: 900; margin-bottom: 10px;">🛠️ Full-Stack Technology Layer</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; font-size: 0.85rem; font-weight: 800;">
+        <div style="background: #ffffff; border: 2px solid var(--duo-border); padding: 10px; border-radius: 12px;"><strong>Frontend UI:</strong> ${data.techStack.frontend}</div>
+        <div style="background: #ffffff; border: 2px solid var(--duo-border); padding: 10px; border-radius: 12px;"><strong>Backend API:</strong> ${data.techStack.backend}</div>
+        <div style="background: #ffffff; border: 2px solid var(--duo-border); padding: 10px; border-radius: 12px;"><strong>Database:</strong> ${data.techStack.database}</div>
+        <div style="background: #ffffff; border: 2px solid var(--duo-border); padding: 10px; border-radius: 12px;"><strong>Deployment:</strong> ${data.techStack.deployment}</div>
+      </div>
+    </div>
+
+    <div style="background: var(--duo-green-light); border: 2px solid var(--duo-green); padding: 16px; border-radius: 14px; margin-bottom: 20px;">
+      <strong style="color: var(--duo-green-dark); font-size: 0.85rem; text-transform: uppercase;">🦸‍♂️ End-to-End Ownership:</strong>
+      <p style="font-size: 0.9rem; font-weight: 700; color: var(--duo-gray-dark); margin-top: 4px;">${data.ownership}</p>
+    </div>
+
+    <div style="display: flex; gap: 12px;">
+      <button class="btn-duo btn-duo-green" onclick="closeProjectModal()" style="flex: 1;">
+        Awesome, Close Modal!
+      </button>
+    </div>
+  `;
+
+  modal.classList.add('open');
 }
 
-// ===== CONTACT FORM TRANSMISSION ENGINE =====
+function closeProjectModal(e) {
+  const modal = document.getElementById('project-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeProjectModal();
+});
+
+// 7. Contact Form Web3Forms Handler
 const contactForm = document.getElementById('contact-form');
 const formStatusBox = document.getElementById('form-status-box');
-const formSubmitBtn = document.getElementById('form-submit-btn');
 
-if (contactForm && formStatusBox && formSubmitBtn) {
-  contactForm.addEventListener('submit', async (e) => {
+if (contactForm) {
+  contactForm.addEventListener('submit', async e => {
     e.preventDefault();
-
-    // Check honeypot spam filter
-    const botcheck = contactForm.querySelector('input[name="botcheck"]');
-    if (botcheck && botcheck.checked) {
-      console.warn("Spam detection triggered.");
-      return;
-    }
-
-    // Set initial loading state
-    formStatusBox.style.display = 'block';
-    formStatusBox.className = 'form-status-box transmitting';
-    formStatusBox.innerHTML = `
-      [INITIALIZING TRANSMISSION...]<br>
-      [CONNECTING TO SECURE RELAY...]<br>
-      [TRANSMITTING PAYLOAD...]
-    `;
-    
-    // Disable submit button during transmission
-    formSubmitBtn.disabled = true;
-    formSubmitBtn.textContent = 'Transmitting...';
-
-    // Prepare FormData
     const formData = new FormData(contactForm);
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerText = '⏳ Sending Message...';
+    }
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: formData
       });
+      const data = await response.json();
 
-      const result = await response.json();
-
-      if (response.status === 200 && result.success) {
-        // Success
-        formStatusBox.className = 'form-status-box success';
-        formStatusBox.innerHTML = `
-          [CONNECTION STABILIZED]<br>
-          [PAYLOAD RECEIVED SUCCESSFULLY]<br>
-          [MESSAGE TRANSMITTED SECURELY TO ENGINE CORE]
-        `;
-        // Clear form values
-        contactForm.reset();
-      } else {
-        // Error response
-        throw new Error(result.message || 'Transmission hand-shake failed.');
+      if (formStatusBox) {
+        formStatusBox.style.display = 'block';
+        if (data.success) {
+          formStatusBox.style.background = 'var(--duo-green-light)';
+          formStatusBox.style.color = 'var(--duo-green-dark)';
+          formStatusBox.style.border = '2px solid var(--duo-green)';
+          formStatusBox.innerText = '🎉 Message sent successfully! You earned +50 XP! Harsh will get back to you soon.';
+          contactForm.reset();
+        } else {
+          formStatusBox.style.background = 'var(--duo-red-light)';
+          formStatusBox.style.color = 'var(--duo-red-dark)';
+          formStatusBox.style.border = '2px solid var(--duo-red)';
+          formStatusBox.innerText = '❌ Something went wrong. Please try emailing work.harshbajaj@gmail.com directly.';
+        }
       }
-    } catch (error) {
-      console.error(error);
-      formStatusBox.className = 'form-status-box error';
-      formStatusBox.innerHTML = `
-        [ERROR: TRANSMISSION FAULT DETECTED]<br>
-        [HANDSHAKE FAILED: ${error.message}]<br>
-        [PLEASE RETRY LATER OR DIRECT EMAIL]
-      `;
+    } catch (err) {
+      if (formStatusBox) {
+        formStatusBox.style.display = 'block';
+        formStatusBox.style.background = 'var(--duo-red-light)';
+        formStatusBox.style.color = 'var(--duo-red-dark)';
+        formStatusBox.innerText = '❌ Network error. Please try emailing directly.';
+      }
     } finally {
-      // Re-enable submit button
-      formSubmitBtn.disabled = false;
-      formSubmitBtn.textContent = '→ Transmit Message';
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = '🚀 Send Message (+50 XP)';
+      }
     }
   });
 }

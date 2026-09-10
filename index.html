@@ -4,432 +4,679 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harsh.Bajaj - Backend Engineer</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap"
-    rel="stylesheet">
+  <title>Harsh Bajaj — Full-Stack Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome CDN for unified, clean monochromatic icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- Custom Cursor -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
-  <div class="noise"></div>
-  <div class="circuit-overlay"></div>
+
+  <!-- Background Particle Sparkles Canvas -->
   <canvas id="bg-canvas"></canvas>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-logo">Harsh<span>.</span>Bajaj</div>
-    <ul class="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="status-badge">
-      <div class="status-dot"></div>
-      <span>Available for hire</span>
+  <!-- ------------------------------------------------------------------------
+       TOP NAVIGATION BAR (GAMIFIED HEADER)
+       ------------------------------------------------------------------------ -->
+  <header class="header-wrapper">
+    <!-- Top Completion Bar -->
+    <div class="completion-bar-wrapper" title="Portfolio Mastery Completion">
+      <div class="completion-bar-fill" id="completion-bar-fill"></div>
     </div>
-  </nav>
 
-  <!-- HERO -->
+    <navbar>
+      <a href="#hero" class="nav-brand">
+        <span class="nav-logo">Harsh<span>.</span>Bajaj</span>
+        <span class="nav-lvl-badge"><i class="fa-solid fa-bolt"></i> Lvl 5 Full-Stack</span>
+      </a>
+
+      <!-- Quest Path Nav -->
+      <ul class="nav-quest-path">
+        <li><a href="#hero" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="#skills"><i class="fa-solid fa-sitemap"></i> Skills</a></li>
+        <li><a href="#projects"><i class="fa-solid fa-rocket"></i> Projects</a></li>
+        <li><a href="#achievements"><i class="fa-solid fa-trophy"></i> Badges</a></li>
+        <li><a href="#experience"><i class="fa-solid fa-map-location-dot"></i> Roadmap</a></li>
+        <li><a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+      </ul>
+
+      <!-- Gamified Live Widgets -->
+      <div class="nav-widgets">
+        <div class="widget-pill streak" title="Coding Streak">
+          <i class="fa-solid fa-fire"></i> <span>7-Day Streak</span>
+        </div>
+        <div class="widget-pill xp" title="Total Experience Points">
+          <i class="fa-solid fa-gem"></i> <span>2,450 XP</span>
+        </div>
+        <div class="widget-pill completion" title="Skill Mastery">
+          <i class="fa-solid fa-bullseye"></i> <span>94% Mastery</span>
+        </div>
+      </div>
+    </navbar>
+  </header>
+
+  <!-- ------------------------------------------------------------------------
+       LEVEL 1: HERO SECTION
+       ------------------------------------------------------------------------ -->
   <section id="hero" class="hero">
     <div class="hero-left">
-      <div class="hero-tag">
-        <span>⬡</span> Backend Engineer // Systems Engineer
+      <div class="hero-badge-row">
+        <div class="hero-status-pill">
+          <span class="status-dot-pulse"></span> Available for Full-Stack Roles & Freelance
+        </div>
       </div>
-      <h1 class="hero-name">
-        Harsh
-        <span class="line2">Bajaj</span>
+
+      <h1 class="hero-title">
+        I build <span class="highlight">full-stack</span> web apps.
       </h1>
-      <p class="hero-role">Building the infrastructure the internet runs on</p>
 
-      <div class="terminal-box" id="terminal-box">
-        <input type="text" id="terminal-hidden-input" aria-label="Terminal Input" autocomplete="off" spellcheck="false">
-        <div id="terminal-history">
-          <div class="terminal-line"><span class="prompt">~/harsh-bajaj</span> <span class="cmd">$ whoami</span></div>
-          <div class="terminal-line output">Backend engineer with 1+ year experience designing distributed systems,
-            APIs & data pipelines.</div>
-          <div class="terminal-line"><span class="prompt">~/harsh-bajaj</span> <span class="cmd">$ cat
-              expertise.txt</span></div>
-          <div class="terminal-line output">Node.js · PostgreSQL · Redis · React.js · Express.js · REST APIs · GraphQL ·
-            Python · FastAPI</div>
-          <div class="terminal-line"><span class="prompt">~/harsh-bajaj</span> <span class="cmd">$ cat
-              contact.txt</span></div>
-          <div class="terminal-line output">work.harshbajaj@gmail.com · github.com/Harsh-Bajajb ·
-            linkedin.com/in/harsh--bajaj
-          </div>
+      <p class="hero-subheadline">
+        From database design & backend APIs to polished, responsive UIs—I own features end-to-end.
+      </p>
+
+      <!-- Gamified Hero Stats -->
+      <div class="hero-stats-grid">
+        <div class="stat-card">
+          <div class="stat-val">14+</div>
+          <div class="stat-lbl">Apps Shipped</div>
         </div>
-        <div class="terminal-line active-line">
-          <span class="prompt">~/harsh-bajaj</span> <span class="cmd">$ <span class="input-text"></span><span
-              class="blink">█</span></span>
+        <div class="stat-card">
+          <div class="stat-val">sub-300ms</div>
+          <div class="stat-lbl">P95 Latency</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">100%</div>
+          <div class="stat-lbl">DB → UI Ownership</div>
         </div>
       </div>
 
-      <div class="hero-cta">
-        <a href="#projects" class="btn-primary">▶ View Projects</a>
-        <a href="#contact" class="btn-secondary">→ Get in Touch</a>
-        <a href="Harsh_Bajaj_Backend_Resume_2026.pdf" class="btn-outline" download>
-          <span class="btn-icon">↓</span> Resume.pdf
+      <!-- Duolingo 3D CTA Buttons -->
+      <div class="hero-cta-group">
+        <a href="#projects" class="btn-duo btn-duo-green">
+          <i class="fa-solid fa-play"></i> Start Exploring Projects
+        </a>
+        <a href="#skills" class="btn-duo btn-duo-blue">
+          <i class="fa-solid fa-star"></i> View Skill Tree
+        </a>
+        <a href="Harsh_Bajaj_Full_Stack_Resume_2026.pdf" class="btn-duo btn-duo-orange" download>
+          <i class="fa-solid fa-download"></i> Download Resume
         </a>
       </div>
     </div>
 
     <div class="hero-right">
-      <div class="pixel-grid" id="pixel-grid"></div>
-    </div>
+      <!-- Mascot Avatar Card -->
+      <div class="avatar-duo-card">
+        <div class="avatar-icon-box"><i class="fa-solid fa-code"></i></div>
+        <div class="avatar-info">
+          <div class="avatar-name">Harsh Bajaj</div>
+          <div class="avatar-title">Level 5 Full-Stack Engineer</div>
+          <div class="avatar-xp-tag"><i class="fa-solid fa-bolt"></i> 2,450 XP · Quest Active</div>
+        </div>
+      </div>
 
-    <div class="scroll-hint">
-      <div class="scroll-line"></div>
-      Scroll to explore
+      <!-- Gamified Terminal Window -->
+      <div class="terminal-duo">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+          </div>
+          <span class="terminal-title">fullstack-quest-cli v2.5</span>
+        </div>
+        <div class="terminal-body" id="term-body">
+          <div class="term-line"><span class="term-prompt">~/harsh-portfolio</span> <span class="term-cmd">$ whoami</span></div>
+          <div class="term-line term-output">Full-stack developer building end-to-end web applications with React, TypeScript, Node.js, PostgreSQL, and cloud deployments.</div>
+          <div class="term-line"><span class="term-prompt">~/harsh-portfolio</span> <span class="term-cmd">$ cat stack.json</span></div>
+          <div class="term-line term-output">{ "frontend": ["React", "TypeScript", "Tailwind"], "backend": ["Node.js", "Express", "FastAPI"], "database": ["PostgreSQL", "MongoDB"] }</div>
+        </div>
+        <div class="term-quick-btns">
+          <button class="term-btn" onclick="runTermCmd('whoami')">$ whoami</button>
+          <button class="term-btn" onclick="runTermCmd('skills')">$ skills</button>
+          <button class="term-btn" onclick="runTermCmd('projects')">$ projects</button>
+          <button class="term-btn" onclick="runTermCmd('streak')">$ streak</button>
+          <button class="term-btn" onclick="runTermCmd('contact')">$ contact</button>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- TICKER -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-inner" id="ticker-inner">
-      <span class="ticker-item">Node.js <span>◆</span></span>
-      <span class="ticker-item">TypeScript <span>◆</span></span>
-      <span class="ticker-item">Express.js <span>◆</span></span>
-      <span class="ticker-item">MongoDB <span>◆</span></span>
-      <span class="ticker-item">PostgreSQL <span>◆</span></span>
-      <span class="ticker-item">MySQL <span>◆</span></span>
-      <span class="ticker-item">Prisma <span>◆</span></span>
-      <span class="ticker-item">Python <span>◆</span></span>
-      <span class="ticker-item">FastAPI <span>◆</span></span>
-      <span class="ticker-item">React.js <span>◆</span></span>
-      <span class="ticker-item">JavaScript <span>◆</span></span>
-      <span class="ticker-item">Tailwind CSS <span>◆</span></span>
-      <span class="ticker-item">Git <span>◆</span></span>
-      <span class="ticker-item">GitHub <span>◆</span></span>
-      <span class="ticker-item">Postman <span>◆</span></span>
-      <span class="ticker-item">SQL <span>◆</span></span>
-      <span class="ticker-item">Linux <span>◆</span></span>
-      <!-- Duplicate for scroll -->
-      <span class="ticker-item">Node.js <span>◆</span></span>
-      <span class="ticker-item">TypeScript <span>◆</span></span>
-      <span class="ticker-item">Express.js <span>◆</span></span>
-      <span class="ticker-item">MongoDB <span>◆</span></span>
-      <span class="ticker-item">PostgreSQL <span>◆</span></span>
-      <span class="ticker-item">MySQL <span>◆</span></span>
-      <span class="ticker-item">Prisma <span>◆</span></span>
-      <span class="ticker-item">Python <span>◆</span></span>
-      <span class="ticker-item">FastAPI <span>◆</span></span>
-      <span class="ticker-item">React.js <span>◆</span></span>
-      <span class="ticker-item">JavaScript <span>◆</span></span>
-      <span class="ticker-item">Tailwind CSS <span>◆</span></span>
-      <span class="ticker-item">Git <span>◆</span></span>
-      <span class="ticker-item">GitHub <span>◆</span></span>
-      <span class="ticker-item">Postman <span>◆</span></span>
-      <span class="ticker-item">SQL <span>◆</span></span>
-      <span class="ticker-item">Linux <span>◆</span></span>
-    </div>
-  </div>
-
-  <!-- EXPERIENCE -->
-  <section id="experience">
+  <!-- ------------------------------------------------------------------------
+       LEVEL 2: SKILLS SECTION (SKILL TREE)
+       ------------------------------------------------------------------------ -->
+  <section id="skills">
     <div class="section-header reveal">
-      <span class="section-num">01 //</span>
-      <h2 class="section-title">Experience</h2>
-      <div class="section-line"></div>
+      <div class="section-level-tag">Level 2 Quest</div>
+      <h2 class="section-title">Technical Skill Tree</h2>
+      <p class="section-subtitle">Balanced mastery across frontend client architecture, backend server engineering, database design, and cloud deployments.</p>
     </div>
 
-    <div class="timeline">
-      <div class="exp-item reveal">
-        <div class="exp-date">
-          <span class="exp-date-range">Apr 2025 — Apr 2026</span>
-          <span class="exp-duration">1 yr & 1 month</span>
+    <div class="skills-container reveal">
+      <!-- Node 1: Frontend -->
+      <div class="skill-node-card">
+        <div class="node-header">
+          <div class="node-icon-title">
+            <div class="node-icon icon-frontend"><i class="fa-solid fa-palette"></i></div>
+            <div>
+              <h3 class="node-title">Frontend Architecture</h3>
+              <div style="font-size: 0.8rem; color: var(--duo-gray-mid); font-weight: 700;">Client UI & User Flows</div>
+            </div>
+          </div>
+          <span class="node-mastery-tag tag-max">Mastery MAX</span>
         </div>
-        <div class="exp-content">
-          <div class="exp-company">Cynox Security LLP</div>
-          <div class="exp-role">Web Developer — Full Stack & Systems</div>
-          <div class="exp-desc">
-            Architected and delivered a production-grade Task Management System by converting loosely defined
-            stakeholder requirements into scalable backend services and APIs. Improved system throughput by ~2x through
-            load testing, optimized database pooling, and asynchronous processing using Redis and BullMQ. Diagnosed
-            malicious resource consumption to stabilize VPS infrastructure and redesigned PDF report generation
-            workflows, reducing size by ~10x.
+        <div class="skill-tags-grid">
+          <span class="skill-pill">React.js / Next.js</span>
+          <span class="skill-pill">TypeScript</span>
+          <span class="skill-pill">Tailwind CSS & CSS3</span>
+          <span class="skill-pill">Responsive UX/UI</span>
+          <span class="skill-pill">State Management (Zustand)</span>
+          <span class="skill-pill">Component Architecture</span>
+          <span class="skill-pill">Chart.js & Visualization</span>
+        </div>
+      </div>
+
+      <!-- Node 2: Backend -->
+      <div class="skill-node-card">
+        <div class="node-header">
+          <div class="node-icon-title">
+            <div class="node-icon icon-backend"><i class="fa-solid fa-gears"></i></div>
+            <div>
+              <h3 class="node-title">Backend & API Systems</h3>
+              <div style="font-size: 0.8rem; color: var(--duo-gray-mid); font-weight: 700;">Server Logic & Middleware</div>
+            </div>
           </div>
-          <div class="exp-tags">
-            <span class="tag">Node.js</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Express.js</span>
-            <span class="tag">MongoDB</span>
-            <span class="tag">Prisma</span>
-            <span class="tag">RBAC</span>
+          <span class="node-mastery-tag tag-max">Mastery MAX</span>
+        </div>
+        <div class="skill-tags-grid">
+          <span class="skill-pill">Node.js & Express.js</span>
+          <span class="skill-pill">Python & FastAPI</span>
+          <span class="skill-pill">REST & GraphQL APIs</span>
+          <span class="skill-pill">JWT Auth & OAuth</span>
+          <span class="skill-pill">Redis & BullMQ Queues</span>
+          <span class="skill-pill">Secure RBAC Middleware</span>
+          <span class="skill-pill">API Testing & Postman</span>
+        </div>
+      </div>
+
+      <!-- Node 3: Database & Data Modeling -->
+      <div class="skill-node-card">
+        <div class="node-header">
+          <div class="node-icon-title">
+            <div class="node-icon icon-database"><i class="fa-solid fa-database"></i></div>
+            <div>
+              <h3 class="node-title">Database & Storage</h3>
+              <div style="font-size: 0.8rem; color: var(--duo-gray-mid); font-weight: 700;">Schema Design & Queries</div>
+            </div>
           </div>
+          <span class="node-mastery-tag tag-lvl5">Level 5</span>
+        </div>
+        <div class="skill-tags-grid">
+          <span class="skill-pill">PostgreSQL</span>
+          <span class="skill-pill">MongoDB</span>
+          <span class="skill-pill">Prisma ORM</span>
+          <span class="skill-pill">MySQL</span>
+          <span class="skill-pill">Query Optimization</span>
+          <span class="skill-pill">Data Aggregation</span>
+        </div>
+      </div>
+
+      <!-- Node 4: DevOps & Deployment -->
+      <div class="skill-node-card">
+        <div class="node-header">
+          <div class="node-icon-title">
+            <div class="node-icon icon-devops"><i class="fa-solid fa-cloud"></i></div>
+            <div>
+              <h3 class="node-title">DevOps & Cloud Deploy</h3>
+              <div style="font-size: 0.8rem; color: var(--duo-gray-mid); font-weight: 700;">Hosting & CI/CD Pipelines</div>
+            </div>
+          </div>
+          <span class="node-mastery-tag tag-lvl5">Level 5</span>
+        </div>
+        <div class="skill-tags-grid">
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Vercel & Netlify</span>
+          <span class="skill-pill">Render & Railway</span>
+          <span class="skill-pill">Linux & Bash</span>
+          <span class="skill-pill">Nginx & Reverse Proxy</span>
+          <span class="skill-pill">Git & GitHub Actions</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <div class="skills-banner reveal">
-    <div class="skills-title">// Technical Proficiency</div>
-    <div class="skills-grid">
-      <div class="skill-category">
-        <h3 class="category-name">Backend & Systems</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">Node.js</span>
-          <span class="skill-tag">TypeScript</span>
-          <span class="skill-tag">Express.js</span>
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">FastAPI</span>
-          <span class="skill-tag">REST APIs</span>
-          <span class="skill-tag">Redis & BullMQ</span>
-          <span class="skill-tag">PostgreSQL & MongoDB</span>
-          <span class="skill-tag">Prisma ORM</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3 class="category-name">AI & NLP Engineering</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">Semantic Search</span>
-          <span class="skill-tag">Vector Embeddings</span>
-          <span class="skill-tag">ONNX Runtime</span>
-          <span class="skill-tag">TF-IDF Fallbacks</span>
-          <span class="skill-tag">Cosine Similarity</span>
-          <span class="skill-tag">Domain Weighting</span>
-          <span class="skill-tag">NLP Pipelines</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3 class="category-name">Infrastructure & Scale</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">Docker</span>
-          <span class="skill-tag">Linux / Bash</span>
-          <span class="skill-tag">Nginx Reverse Proxy</span>
-          <span class="skill-tag">PM2 Process Manager</span>
-          <span class="skill-tag">Load Testing (k6)</span>
-          <span class="skill-tag">Asynchronous Processing</span>
-          <span class="skill-tag">VPS Stabilization</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3 class="category-name">Security & Tools</h3>
-        <div class="skill-tags">
-          <span class="skill-tag">JWT Auth</span>
-          <span class="skill-tag">Secure RBAC</span>
-          <span class="skill-tag">Rate Limiting</span>
-          <span class="skill-tag">Winston Logging</span>
-          <span class="skill-tag">Git / GitHub</span>
-          <span class="skill-tag">Postman API Testing</span>
-          <span class="skill-tag">Puppeteer Scraping</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PROJECTS -->
+  <!-- ------------------------------------------------------------------------
+       LEVEL 3: PROJECTS SECTION (QUEST BOARD)
+       ------------------------------------------------------------------------ -->
   <section id="projects">
     <div class="section-header reveal">
-      <span class="section-num">02 //</span>
-      <h2 class="section-title">Projects</h2>
-      <div class="section-line"></div>
+      <div class="section-level-tag">Level 3 Quest</div>
+      <h2 class="section-title">Full-Stack Project Showcase</h2>
+      <p class="section-subtitle">Real-world applications built from schema definition and backend endpoints to polished interactive user interfaces.</p>
     </div>
 
     <div class="projects-grid">
-      <div class="proj-card large proj-accent reveal">
-        <a href="https://github.com/dexten32/ATS" target="_blank">
-          <svg class="proj-lines" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 40 L40 40 L40 0" stroke="var(--accent2)" opacity="0.3" stroke-width="1" />
-            <path d="M0 80 L60 80 L60 60 L120 60" stroke="var(--accent2)" opacity="0.15" stroke-width="1" />
-            <circle cx="40" cy="40" r="3" fill="var(--accent2)" opacity="0.5" />
-            <circle cx="60" cy="80" r="3" fill="var(--accent2)" opacity="0.3" />
-          </svg>
-          <div class="proj-num">// 001 · Desktop Application</div>
-          <div class="proj-name">Advanced Resume ATS & Intelligence</div>
-          <div class="proj-desc">AI-powered resume evaluation desktop and backend engine utilizing ONNX Runtime text
-            embeddings (all-MiniLM-L6-v2) and inflation-resistant scoring weights (domain weighting & penalty engines to
-            combat keyword stuffing). Load-tested with k6 to achieve sub-300ms p95 latency.</div>
-          <div class="proj-stack">
-            <span class="stack-badge">Python</span>
-            <span class="stack-badge">FastAPI</span>
-            <span class="stack-badge">ONNX NLP</span>
-            <span class="stack-badge">k6</span>
-            <span class="stack-badge">PostgreSQL</span>
-            <span class="stack-badge">PyQt / CustomTkinter</span>
+      <!-- PROJECT 1 (FEATURED): TIME TRACKER -->
+      <div class="project-card featured-card reveal">
+        <div>
+          <div class="project-top-row">
+            <span class="project-type-badge">FULL-STACK APP</span>
+            <span style="font-size: 0.8rem; font-weight: 800; color: var(--duo-green-dark);"><i class="fa-solid fa-circle-check"></i> 100% End-to-End</span>
           </div>
-          <div class="proj-metrics">
-            <div class="metric"><span class="metric-val">600+</span><span class="metric-label">req/sec</span></div>
-            <div class="metric"><span class="metric-val">90%</span><span class="metric-label">match accuracy</span>
-            </div>
+
+          <h3 class="project-title"><i class="fa-solid fa-stopwatch"></i> Time Tracker</h3>
+
+          <p class="project-one-liner">
+            A full-stack time tracking app to log, analyze, and visualize time spent on projects and tasks.
+          </p>
+
+          <ul class="project-feature-bullets">
+            <li><strong>Interactive Timer & Manual Log:</strong> Start/stop live stopwatch or submit manual time entries with project tags.</li>
+            <li><strong>Analytics Dashboard:</strong> Visual daily, weekly, and monthly time breakdowns using interactive charts.</li>
+            <li><strong>Project & Tag Categorization:</strong> Granular organization of tasks with custom tags and workspace grouping.</li>
+            <li><strong>Authentication & Security:</strong> JWT user authentication with isolated user data schemas and CSV/PDF export.</li>
+          </ul>
+
+          <div class="project-tech-stack">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">Tailwind CSS</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Express</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">JWT Auth</span>
+            <span class="tech-badge">Electron</span>
           </div>
-          <span class="proj-arrow">↗</span>
-        </a>
+        </div>
+
+        <div class="project-card-footer">
+          <button class="btn-duo btn-duo-green" onclick="openProjectModal('time-tracker')">
+            <i class="fa-solid fa-magnifying-glass"></i> View Details & Architecture
+          </button>
+          <a href="https://github.com/Harsh-Bajajb" target="_blank" class="btn-duo btn-duo-outline">
+            <i class="fa-brands fa-github"></i> Code Repository
+          </a>
+        </div>
       </div>
 
-      <div class="proj-card medium proj-hot reveal">
-        <a href="https://github.com/dexten32/invoice_generator" target="_blank">
-          <svg class="proj-lines" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 40 L40 40 L40 0" stroke="var(--accent3)" opacity="0.3" stroke-width="1" />
-            <path d="M0 80 L60 80 L60 60 L120 60" stroke="var(--accent3)" opacity="0.15" stroke-width="1" />
-            <circle cx="40" cy="40" r="3" fill="var(--accent3)" opacity="0.5" />
-          </svg>
-          <div class="proj-num">// 002 · Desktop Application</div>
-          <div class="proj-name">Invoice Generator Pro</div>
-          <div class="proj-desc">A high-fidelity desktop and web application with live real-time PDF previewing,
-            multi-currency support, custom logo uploading, and automated tax calculations. Features pixel-perfect
-            brutalist aesthetics with optimized one-click local file exports.</div>
-          <div class="proj-stack">
-            <span class="stack-badge">React</span>
-            <span class="stack-badge">Chakra UI</span>
-            <span class="stack-badge">Tailwind</span>
-            <span class="stack-badge">jsPDF</span>
-            <span class="stack-badge">Electron</span>
+      <!-- PROJECT 2: RESUME ATS & INTELLIGENCE -->
+      <div class="project-card reveal">
+        <div>
+          <div class="project-top-row">
+            <span class="project-type-badge">AI FULL-STACK APP</span>
+            <span style="font-size: 0.8rem; font-weight: 800; color: var(--duo-blue-dark);"><i class="fa-solid fa-bolt"></i> Sub-300ms</span>
           </div>
-          <div class="proj-metrics">
-            <div class="metric"><span class="metric-val">Local</span><span class="metric-label">Save & Print</span>
-            </div>
-            <div class="metric"><span class="metric-val">PDF</span><span class="metric-label">Export</span></div>
+
+          <h3 class="project-title"><i class="fa-solid fa-bullseye"></i> Advanced Resume ATS & Intelligence</h3>
+
+          <p class="project-one-liner">
+            An end-to-end resume evaluation portal pairing an intuitive scoring dashboard with a high-performance vector NLP engine.
+          </p>
+
+          <ul class="project-feature-bullets">
+            <li><strong>UI/UX Flow:</strong> Drag-and-drop resume upload, live keyword match breakdown, and visual score gauge dashboard.</li>
+            <li><strong>Full Stack:</strong> React UI frontend, Python FastAPI server, ONNX embedding engine, and PostgreSQL storage.</li>
+            <li><strong>Performance:</strong> Sub-300ms p95 latency under heavy k6 load testing with inflation-resistant penalty scoring.</li>
+          </ul>
+
+          <div class="project-tech-stack">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">FastAPI</span>
+            <span class="tech-badge">ONNX NLP</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">Tailwind</span>
           </div>
-          <span class="proj-arrow">↗</span>
-        </a>
+        </div>
+
+        <div class="project-card-footer">
+          <button class="btn-duo btn-duo-blue" onclick="openProjectModal('ats')">
+            <i class="fa-solid fa-magnifying-glass"></i> View Details
+          </button>
+          <a href="https://github.com/dexten32/ATS" target="_blank" class="btn-duo btn-duo-outline">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
       </div>
 
-      <div class="proj-card wide reveal">
-        <a href="https://tms.zephy.co.in/" target="_blank">
-          <svg class="proj-lines" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M120 0 L80 0 L80 40 L40 40 L40 80 L0 80" stroke="var(--accent)" opacity="0.3" stroke-width="1" />
-            <path d="M120 40 L100 40 L100 80 L60 80 L60 120" stroke="var(--accent)" opacity="0.15" stroke-width="1" />
-            <circle cx="80" cy="40" r="3" fill="var(--accent)" opacity="0.5" />
-            <circle cx="40" cy="80" r="3" fill="var(--accent)" opacity="0.3" />
-            <circle cx="100" cy="80" r="3" fill="var(--accent)" opacity="0.2" />
-          </svg>
-          <div class="proj-num">// 003 · Web Application</div>
-          <div class="proj-name">Task Management System</div>
-          <div class="proj-desc">A production-grade task management platform featuring modular backend architecture, JWT
-            authentication, secure RBAC middleware, and optimized SQL schemas. Integrates Redis and BullMQ to run
-            background tasks asynchronously, heavily improving concurrent throughput.</div>
-          <div class="proj-stack">
-            <span class="stack-badge">Node.js</span>
-            <span class="stack-badge">Express.js</span>
-            <span class="stack-badge">Prisma</span>
-            <span class="stack-badge">BullMQ</span>
-            <span class="stack-badge">Redis</span>
-            <span class="stack-badge">MySQL</span>
-          </div>
-          <div class="proj-metrics">
-            <div class="metric"><span class="metric-val">200+</span><span class="metric-label">API req/sec</span></div>
-            <div class="metric"><span class="metric-val">50+</span><span class="metric-label">active users</span></div>
+      <!-- PROJECT 3: INVOICE GENERATOR PRO -->
+      <div class="project-card reveal">
+        <div>
+          <div class="project-top-row">
+            <span class="project-type-badge">WEB & DESKTOP APP</span>
+            <span style="font-size: 0.8rem; font-weight: 800; color: var(--duo-orange-dark);"><i class="fa-solid fa-file-pdf"></i> Live PDF Preview</span>
           </div>
 
-          <span class="proj-arrow">↗</span>
-        </a>
+          <h3 class="project-title"><i class="fa-solid fa-file-invoice-dollar"></i> Invoice Generator Pro</h3>
+
+          <p class="project-one-liner">
+            A full-stack client invoice generator featuring dynamic calculation flows, multi-currency support, and instant PDF rendering.
+          </p>
+
+          <ul class="project-feature-bullets">
+            <li><strong>UI/UX Flow:</strong> Side-by-side live PDF preview, drag-and-drop logo builder, dynamic tax/discount calculations.</li>
+            <li><strong>Full Stack:</strong> React frontend, Node/Electron backend, schema validation, local storage sync, jsPDF engine.</li>
+          </ul>
+
+          <div class="project-tech-stack">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Tailwind</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Electron</span>
+            <span class="tech-badge">jsPDF</span>
+          </div>
+        </div>
+
+        <div class="project-card-footer">
+          <button class="btn-duo btn-duo-orange" onclick="openProjectModal('invoice')">
+            <i class="fa-solid fa-magnifying-glass"></i> View Details
+          </button>
+          <a href="https://github.com/dexten32/invoice_generator" target="_blank" class="btn-duo btn-duo-outline">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- PROJECT 4: TASK MANAGEMENT SYSTEM -->
+      <div class="project-card reveal">
+        <div>
+          <div class="project-top-row">
+            <span class="project-type-badge">ENTERPRISE PLATFORM</span>
+            <span style="font-size: 0.8rem; font-weight: 800; color: var(--duo-purple-dark);"><i class="fa-solid fa-layer-group"></i> Redis & BullMQ</span>
+          </div>
+
+          <h3 class="project-title"><i class="fa-solid fa-list-check"></i> Task Management System</h3>
+
+          <p class="project-one-liner">
+            Production-grade task & team operations system featuring real-time task boards, async background workers, and RBAC security.
+          </p>
+
+          <ul class="project-feature-bullets">
+            <li><strong>UI/UX Flow:</strong> Interactive task board, real-time status updates, team assignment workflow, and report downloads.</li>
+            <li><strong>Full Stack:</strong> React frontend dashboard, Node/Express API server, Redis queue, BullMQ async workers, MySQL DB.</li>
+          </ul>
+
+          <div class="project-tech-stack">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Express</span>
+            <span class="tech-badge">Prisma ORM</span>
+            <span class="tech-badge">BullMQ</span>
+            <span class="tech-badge">Redis</span>
+            <span class="tech-badge">MySQL</span>
+          </div>
+        </div>
+
+        <div class="project-card-footer">
+          <button class="btn-duo btn-duo-green" onclick="openProjectModal('tms')">
+            <i class="fa-solid fa-magnifying-glass"></i> View Details
+          </button>
+          <a href="https://tms.zephy.co.in/" target="_blank" class="btn-duo btn-duo-outline">
+            <i class="fa-solid fa-globe"></i> Live App
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section id="education" class="education-section">
+  <!-- ------------------------------------------------------------------------
+       LEVEL 4: ACHIEVEMENTS & BADGES (TROPHY ROOM)
+       ------------------------------------------------------------------------ -->
+  <section id="achievements">
     <div class="section-header reveal">
-      <span class="section-num">03 //</span>
-      <h2 class="section-title">Education</h2>
-      <div class="section-line"></div>
+      <div class="section-level-tag">Level 4 Quest</div>
+      <h2 class="section-title">Unlocked Achievement Badges</h2>
+      <p class="section-subtitle">Earned milestones reflecting engineering impact, full-stack velocity, and production-proven reliability.</p>
     </div>
 
-    <div class="edu-timeline reveal">
-      <div class="edu-item">
-        <div class="edu-date-col">
-          <span class="edu-date-range">2025 — 2027</span>
-          <span class="edu-status">In Progress</span>
+    <div class="achievements-grid reveal">
+      <!-- Badge 1 -->
+      <div class="badge-card">
+        <div class="badge-icon-wrap green"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="badge-title">Full-Stack Hero</h3>
+        <p class="badge-desc">Capable of owning features end-to-end from DB schema & API routes down to responsive UI components.</p>
+        <span class="badge-unlocked-tag"><i class="fa-solid fa-check"></i> Unlocked</span>
+      </div>
+
+      <!-- Badge 2 -->
+      <div class="badge-card">
+        <div class="badge-icon-wrap blue"><i class="fa-solid fa-bolt"></i></div>
+        <h3 class="badge-title">API Master</h3>
+        <p class="badge-desc">Architected high-throughput REST/GraphQL endpoints with sub-300ms p95 latency and Redis caching.</p>
+        <span class="badge-unlocked-tag"><i class="fa-solid fa-check"></i> Unlocked</span>
+      </div>
+
+      <!-- Badge 3 -->
+      <div class="badge-card">
+        <div class="badge-icon-wrap purple"><i class="fa-solid fa-paintbrush"></i></div>
+        <h3 class="badge-title">UI Champion</h3>
+        <p class="badge-desc">Crafted accessible, visually striking, user-friendly client interfaces with modern state management.</p>
+        <span class="badge-unlocked-tag"><i class="fa-solid fa-check"></i> Unlocked</span>
+      </div>
+
+      <!-- Badge 4 -->
+      <div class="badge-card">
+        <div class="badge-icon-wrap orange"><i class="fa-brands fa-github"></i></div>
+        <h3 class="badge-title">Open Source Contributor</h3>
+        <p class="badge-desc">Active open-source builder delivering clean modular repositories and documentation.</p>
+        <span class="badge-unlocked-tag"><i class="fa-solid fa-check"></i> Unlocked</span>
+      </div>
+
+      <!-- Badge 5 -->
+      <div class="badge-card">
+        <div class="badge-icon-wrap gold"><i class="fa-solid fa-database"></i></div>
+        <h3 class="badge-title">Database Architect</h3>
+        <p class="badge-desc">Designed normalized relational PostgreSQL schemas and MongoDB document stores with indexing.</p>
+        <span class="badge-unlocked-tag"><i class="fa-solid fa-check"></i> Unlocked</span>
+      </div>
+
+      <!-- Badge 6 -->
+      <div class="badge-card">
+        <div class="badge-icon-wrap red"><i class="fa-solid fa-gauge-high"></i></div>
+        <h3 class="badge-title">Speed Demon</h3>
+        <p class="badge-desc">Optimized database pooling and PDF generation pipelines, delivering 10x throughput gains.</p>
+        <span class="badge-unlocked-tag"><i class="fa-solid fa-check"></i> Unlocked</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------------
+       LEVEL 5 & 6: EXPERIENCE & EDUCATION ROADMAP
+       ------------------------------------------------------------------------ -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <div class="section-level-tag">Level 5 Quest</div>
+      <h2 class="section-title">Level-Up Experience Roadmap</h2>
+      <p class="section-subtitle">Chronological record of production engineering roles and academic achievements.</p>
+    </div>
+
+    <div class="roadmap-container reveal">
+      <!-- Item 1: Zudue (Latest Role) -->
+      <div class="roadmap-card">
+        <div class="roadmap-left">
+          <span class="roadmap-date">May 2026 — Present</span>
+          <span class="roadmap-duration">Software Intern</span>
         </div>
-        <div class="edu-content">
-          <div class="edu-school">Indira Gandhi National Open University (IGNOU)</div>
-          <div class="edu-degree">Master of Computer Applications (MCA)</div>
-          <div class="edu-desc">Advanced study of systems programming, algorithms, database models, cloud computing, and
-            distributed networks.</div>
+        <div>
+          <div class="roadmap-company">Zudue</div>
+          <div class="roadmap-role">Software Engineer Intern — Full Stack & QA</div>
+          <p class="roadmap-desc">
+            Spearheaded full-stack feature enhancements and UI/UX design optimizations for a mobile platform offering live chat, video calls, and paid influencer shoutouts using Figma and AI tools. Conducted end-to-end manual QA across user/influencer flows and static bug bounty testing to eliminate critical blockers. Concurrently architected and delivered a freelance Task Management System in 1 week with 1 month post-launch support.
+          </p>
+          <div class="project-tech-stack">
+            <span class="tech-badge">Figma & UI/UX</span>
+            <span class="tech-badge">React & Mobile Platform</span>
+            <span class="tech-badge">Manual QA & Testing</span>
+            <span class="tech-badge">Bug Bounty</span>
+            <span class="tech-badge">AI Tools</span>
+            <span class="tech-badge">Freelance Full-Stack</span>
+          </div>
         </div>
       </div>
 
-      <div class="edu-item">
-        <div class="edu-date-col">
-          <span class="edu-date-range">2021 — 2025</span>
-          <span class="edu-status">Completed</span>
+      <!-- Item 2: Cynox -->
+      <div class="roadmap-card">
+        <div class="roadmap-left">
+          <span class="roadmap-date">Apr 2025 — Apr 2026</span>
+          <span class="roadmap-duration">1 yr & 1 mo</span>
         </div>
-        <div class="edu-content">
-          <div class="edu-school">Deshbandhu College, Delhi University</div>
-          <div class="edu-degree">Bachelor of Science in Computer Science</div>
-          <div class="edu-desc">Rigorous foundation in structural computing, database management, software engineering,
-            OS kernels, and network architectures.</div>
+        <div>
+          <div class="roadmap-company">Cynox Security LLP</div>
+          <div class="roadmap-role">Web Developer — Full Stack & Systems</div>
+          <p class="roadmap-desc">
+            Architected and delivered production-grade web applications by bridging business requirements into scalable Node.js/TypeScript microservices and polished React frontends. Boosted API throughput by 2x via Redis caching & BullMQ async queues. Redesigned document processing workflows to reduce PDF payload sizes by 10x.
+          </p>
+          <div class="project-tech-stack">
+            <span class="tech-badge">React.js</span>
+            <span class="tech-badge">Node.js</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">Express</span>
+            <span class="tech-badge">MongoDB</span>
+            <span class="tech-badge">Prisma ORM</span>
+            <span class="tech-badge">Redis</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Item 3: Education MCA -->
+      <div class="roadmap-card">
+        <div class="roadmap-left">
+          <span class="roadmap-date">2025 — 2027</span>
+          <span class="roadmap-duration">In Progress</span>
+        </div>
+        <div>
+          <div class="roadmap-company">Indira Gandhi National Open University (IGNOU)</div>
+          <div class="roadmap-role">Master of Computer Applications (MCA)</div>
+          <p class="roadmap-desc">
+            Advanced study of cloud architecture, distributed algorithms, software engineering principles, and enterprise database systems.
+          </p>
+        </div>
+      </div>
+
+      <!-- Item 4: Education DU -->
+      <div class="roadmap-card">
+        <div class="roadmap-left">
+          <span class="roadmap-date">2021 — 2025</span>
+          <span class="roadmap-duration">Completed</span>
+        </div>
+        <div>
+          <div class="roadmap-company">Deshbandhu College, Delhi University</div>
+          <div class="roadmap-role">Bachelor of Science in Computer Science</div>
+          <p class="roadmap-desc">
+            Rigorous core computer science education covering data structures & algorithms, operating systems, computer networks, and relational database systems.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ------------------------------------------------------------------------
+       CONTACT SECTION (FINISH LINE / QUEST CLEAR)
+       ------------------------------------------------------------------------ -->
   <section id="contact">
-    <div class="contact-left reveal">
-      <div class="big-text">
-        Let's build<br>
-        something <em>reliable.</em>
-      </div>
-      <p class="contact-desc">
-        Whether you need a scalable backend, a secure API, or high-concurrency systems. I'm ready to collaborate.
-        Available for full-time and project-based opportunities.
-      </p>
-      <div class="contact-links">
-        <a href="mailto:work.harshbajaj@gmail.com" class="contact-link">
-          <span class="contact-link-icon">✉</span>
-          <span class="contact-link-label">work.harshbajaj@gmail.com</span>
-          <span class="contact-link-arr">→</span>
-        </a>
-        <a href="https://github.com/Harsh-Bajajb" class="contact-link">
-          <span class="contact-link-icon">⌥</span>
-          <span class="contact-link-label">github.com/Harsh-Bajajb</span>
-          <span class="contact-link-arr">→</span>
-        </a>
-        <a href="https://www.linkedin.com/in/harsh--bajaj/" class="contact-link">
-          <span class="contact-link-icon">⚡</span>
-          <span class="contact-link-label">linkedin.com/in/harsh--bajaj</span>
-          <span class="contact-link-arr">→</span>
-        </a>
-      </div>
+    <div class="section-header reveal">
+      <div class="section-level-tag">Finish Line</div>
+      <h2 class="section-title">Claim Your Reward: Get In Touch</h2>
+      <p class="section-subtitle">Need a reliable full-stack developer to bring your web app idea to life? Send a message below!</p>
     </div>
 
-    <form class="contact-right reveal" id="contact-form">
-      <input type="hidden" name="access_key" value="9f3ff16e-e5f5-4ed9-9ce3-3275d6f2895b">
-      <input type="hidden" name="subject" value="New Portfolio Transmission">
-      <input type="checkbox" name="botcheck" style="display: none;">
+    <div class="contact-container reveal">
+      <div class="contact-info-card">
+        <h3 class="contact-big-title">Let's build something <span>reliable.</span></h3>
+        <p style="font-size: 1rem; color: var(--duo-gray-mid); font-weight: 700;">
+          Whether you need an end-to-end full-stack web app, custom REST/GraphQL APIs, or responsive user interface components, I'm ready to collaborate!
+        </p>
 
-      <div class="form-title">// Initialize Connection</div>
-      <div class="form-group">
-        <label class="form-label" for="contact-name">Identifier</label>
-        <input type="text" id="contact-name" name="name" class="form-input" placeholder="your_name" required
-          autocomplete="name">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="contact-email">Return Address</label>
-        <input type="email" id="contact-email" name="email" class="form-input" placeholder="you@company.com" required
-          autocomplete="email">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="contact-subject">Subject</label>
-        <input type="text" id="contact-subject" name="custom_subject" class="form-input"
-          placeholder="What are we building?" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="contact-message">Payload</label>
-        <textarea id="contact-message" name="message" class="form-input"
-          placeholder="Describe the problem or project..." required></textarea>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <a href="mailto:work.harshbajaj@gmail.com" class="contact-link-row">
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--duo-gray-mid);">Direct Email</div>
+              <div>work.harshbajaj@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/Harsh-Bajajb" target="_blank" class="contact-link-row">
+            <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--duo-gray-mid);">GitHub Profile</div>
+              <div>github.com/Harsh-Bajajb</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/harsh--bajaj/" target="_blank" class="contact-link-row">
+            <div class="contact-icon"><i class="fa-brands fa-linkedin"></i></div>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--duo-gray-mid);">LinkedIn Network</div>
+              <div>linkedin.com/in/harsh--bajaj</div>
+            </div>
+          </a>
+        </div>
       </div>
 
-      <!-- Submission feedback status box -->
-      <div id="form-status-box" class="form-status-box"
-        style="display: none; margin-bottom: 20px; font-size: 0.75rem; line-height: 1.6;"></div>
+      <!-- Contact Form -->
+      <div class="contact-form-card">
+        <form id="contact-form">
+          <input type="hidden" name="access_key" value="9f3ff16e-e5f5-4ed9-9ce3-3275d6f2895b">
+          <input type="hidden" name="subject" value="New Portfolio Quest Transmission">
+          <input type="checkbox" name="botcheck" style="display: none;">
 
-      <button type="submit" class="form-submit" id="form-submit-btn">→ Transmit Message</button>
-    </form>
+          <div class="form-group">
+            <label class="form-label" for="contact-name">Your Name</label>
+            <input type="text" id="contact-name" name="name" class="form-input" placeholder="e.g. Alex Rivera" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-email">Your Email Address</label>
+            <input type="email" id="contact-email" name="email" class="form-input" placeholder="alex@company.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-subject">Project Subject</label>
+            <input type="text" id="contact-subject" name="custom_subject" class="form-input" placeholder="e.g. Full-Stack Web App Development" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Message Payload</label>
+            <textarea id="contact-message" name="message" class="form-input" placeholder="Describe your project or role opportunities..." required></textarea>
+          </div>
+
+          <div id="form-status-box" style="display: none; padding: 12px; border-radius: 12px; margin-bottom: 16px; font-weight: 800; font-size: 0.85rem;"></div>
+
+          <button type="submit" class="btn-duo btn-duo-green" style="width: 100%;">
+            <i class="fa-solid fa-paper-plane"></i> Send Message (+50 XP)
+          </button>
+        </form>
+      </div>
+    </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ------------------------------------------------------------------------
+       PROJECT DETAIL MODAL POPUP
+       ------------------------------------------------------------------------ -->
+  <div class="modal-overlay" id="project-modal" onclick="closeProjectModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeProjectModal()">✕</button>
+      <div id="modal-body-content">
+        <!-- Content injected dynamically via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------------------------------
+       FOOTER
+       ------------------------------------------------------------------------ -->
   <footer>
-    <div class="footer-copy">© 2026 Harsh Bajaj — <span>All systems operational</span></div>
-    <div class="footer-built">Built with ♥ and JetBrains Mono</div>
+    <div>© 2026 Harsh Bajaj — <span>Full-Stack Quest Complete <i class="fa-solid fa-trophy"></i></span></div>
+    <div>Built with ♥, React/Node & Duolingo Aesthetics</div>
   </footer>
 
   <script src="script.js" defer></script>
